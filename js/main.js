@@ -3,28 +3,34 @@
 
 
 /*------ App's State (Variables)------*/
-const board;
-const turn;
-const winner;
+const squares = Array.from(document.querySelectorAll('.board div'));
+let board;
+let turn = 'X';
+let winner;
 
 /*------Cached Element References------*/
 
-// You might choose to put your game status here
+// game status
 
 /*------Event Listeners------*/
 
-// This is where you should put the event listener
-// for a mouse-click
 
 /*------Functions------*/
+
 init();
-// Where you set your initial state, setting up 
-// what the board will look like upon loading
+
+function init() {
+    board = [
+    '', '', '',
+    '', '', '',
+    '', '', ''
+    ];
+    };
+
 
 // On-Click function:
 // Set up what happens when one of the elements
 // is clicked
-
 
 // Check winner function:
 // Checks the current state of the board for
@@ -36,3 +42,11 @@ init();
 // Displays the current state of the board
 // on the page, updating the elements to reflect
 // either X or O depending on whose turn it is
+
+function render() {
+    board.forEach(function(mark, index) {
+        squares[index].textContent = mark;
+    });
+}
+
+render();
