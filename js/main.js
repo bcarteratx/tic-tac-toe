@@ -13,16 +13,16 @@ const winCombos = [
 
 /*------ App's State (Variables)------*/
 let board;
-let turn = 'X';
+let turn;
 let winner;
 
 /*------Cached Element References------*/
+// board status
 const squares = Array.from(document.querySelectorAll('.board div'));
-// game status
 
 /*------Event Listeners------*/
 document.querySelector('.board').addEventListener('click', handleTurn);
-
+document.querySelector('#reset').addEventListener('click', handleReset);
 /*------Functions------*/
 
 init();
@@ -33,6 +33,7 @@ function init() {
     '', '', '',
     '', '', ''
     ];
+    turn = 'X'
     render();
     };
 
@@ -40,9 +41,14 @@ function init() {
 // On-Click function:
 // Set up what happens when one of the elements
 // is clicked
-function handleTurn(event) {
+
+function handleReset(click) {
+    init();
+}
+
+function handleTurn(click) {
     let idx = squares.findIndex(function(square) {
-        return square === event.target;
+        return square === click.target;
     });
     board[idx] = turn;
     if (turn === 'X') {
@@ -56,7 +62,9 @@ function handleTurn(event) {
 // Checks the current state of the board for
 // a winner and changes the state of the winner
 // variable if so
-
+function checkWinner() {
+    
+}
 
 // Render function:
 // Displays the current state of the board
