@@ -3,17 +3,16 @@
 
 
 /*------ App's State (Variables)------*/
-const squares = Array.from(document.querySelectorAll('.board div'));
 let board;
 let turn = 'X';
 let winner;
 
 /*------Cached Element References------*/
-
+const squares = Array.from(document.querySelectorAll('.board div'));
 // game status
 
 /*------Event Listeners------*/
-
+document.querySelector('.board').addEventListener('click', handleTurn);
 
 /*------Functions------*/
 
@@ -25,13 +24,20 @@ function init() {
     '', '', '',
     '', '', ''
     ];
+    render();
     };
 
-
+    
 // On-Click function:
 // Set up what happens when one of the elements
 // is clicked
-
+function handleTurn(event) {
+    let idx = squares.findIndex(function(square) {
+        return square === event.target;
+    });
+    board[idx] = turn;
+    render();
+}
 // Check winner function:
 // Checks the current state of the board for
 // a winner and changes the state of the winner
@@ -44,9 +50,7 @@ function init() {
 // either X or O depending on whose turn it is
 
 function render() {
-    board.forEach(function(mark, index) {
-        squares[index].textContent = mark;
+    board.forEach(function(move, index) {
+        squares[index].textContent = move;
     });
 }
-
-render();
