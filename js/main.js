@@ -36,6 +36,11 @@ function handleTurn(event) {
         return square === event.target;
     });
     board[idx] = turn;
+    if (turn === 'X') {
+        turn = 'O'
+    } else {
+        turn = 'X'
+    }
     render();
 }
 // Check winner function:
