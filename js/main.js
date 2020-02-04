@@ -1,4 +1,10 @@
 /*------Constants------*/
+const colors = {
+    'null': 'white',
+    'player 1': 'red', 
+    'player -1': 'blue',
+};
+
 const winCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -15,10 +21,9 @@ const winCombos = [
 let board;
 let turn;
 let winner;
-
 /*------Cached Element References------*/
 // board status
-const squares = Array.from(document.querySelectorAll('.board div'));
+let cells = Array.from(document.querySelectorAll('.board div'));
 
 /*------Event Listeners------*/
 document.querySelector('.board').addEventListener('click', handleTurn);
@@ -33,11 +38,12 @@ function init() {
     '', '', '',
     '', '', ''
     ];
-    turn = 'X'
+    turn = '1';
+    winner = null;
     render();
-    };
+};
 
-    
+
 // On-Click function:
 // Set up what happens when one of the elements
 // is clicked
@@ -47,17 +53,21 @@ function handleReset(click) {
 }
 
 function handleTurn(click) {
-    let idx = squares.findIndex(function(square) {
-        return square === click.target;
+    let idx = cells.findIndex(function(cell) {
+        return cell === click.target;
     });
+    if (board[idx] || winner) return;
     board[idx] = turn;
-    if (turn === 'X') {
-        turn = 'O'
+    if (turn === '1') {
+        turn = '-1'
     } else {
-        turn = 'X'
+        turn = '1'
     }
+    win = checkWinner();
     render();
 }
+
+
 // Check winner function:
 // Checks the current state of the board for
 // a winner and changes the state of the winner
@@ -73,6 +83,8 @@ function checkWinner() {
 
 function render() {
     board.forEach(function(move, index) {
-        squares[index].textContent = move;
+        cells[index].textContent = move;
+        cells[index].style.background = colors[cells];
     });
+    
 }
