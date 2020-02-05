@@ -4,6 +4,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: rgb(255, 253, 249);
 }
 
 h1 {
@@ -11,26 +12,72 @@ h1 {
 }
 
 #message {
-    margin: 0 auto;
+    margin: 5vmin auto;
 }
 
 section.board {
+    background-image:url(../images/TICTACTOE_background.png);
+    background-size: cover;
     margin: 0 auto;
     display: grid;
     grid-template-rows: repeat(3, 20vmin);
     grid-template-columns: repeat(3, 20vmin);
     grid-gap: 0vmin;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(194, 18, 18);
 }
 
 div {
-    border: 3px solid black;
-    font-size: 12vmin;
-    text-align: center;
-    vertical-align: middle;
+    /*border: 3px solid black;*/
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 27vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sq0 {
+    border-top: 0px;
+    border-left: 0px;
+}
+
+#sq1 {
+    border-top: 0px;
+}
+
+#sq2 {
+    border-top: 0px;
+    border-right: 0px;
+}
+
+#sq3 {
+    border-left: 0px;
+}
+
+#sq5 {
+    border-right: 0px;
+}
+
+#sq6 {
+    border-left: 0px;
+    border-bottom: 0px;
+}
+
+#sq7 {
+    border-bottom: 0px;
+}
+
+#sq8 {
+    border-right: 0px;
+    border-bottom: 0px;
 }
 
 #reset {
-    margin: 0 auto;
+    border-radius: 30px;
+    border-color: black;
+    background-color: whitesmoke;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
     font-size: 4vmin;
-    width: 30vmin;
+    width: 30vmin; 
 }

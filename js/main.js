@@ -21,9 +21,13 @@ const winCombos = [
 let board;
 let turn;
 let winner;
+let turnCount = 1;
+let isWinner = false;
+
 /*------Cached Element References------*/
 // board status
 let cells = Array.from(document.querySelectorAll('.board div'));
+let gameStatus = document.getElementById('message');
 
 /*------Event Listeners------*/
 document.querySelector('.board').addEventListener('click', handleTurn);
@@ -38,8 +42,9 @@ function init() {
     '', '', '',
     '', '', ''
     ];
-    turn = '1';
+    turn = 'x';
     winner = null;
+    gameStatus.textContent = "It is X's Turn"
     render();
 };
 
@@ -58,10 +63,10 @@ function handleTurn(click) {
     });
     if (board[idx] || winner) return;
     board[idx] = turn;
-    if (turn === '1') {
-        turn = '-1'
+    if (turn === 'x') {
+        turn = 'o'
     } else {
-        turn = '1'
+        turn = 'x'
     }
     win = checkWinner();
     render();
@@ -73,7 +78,12 @@ function handleTurn(click) {
 // a winner and changes the state of the winner
 // variable if so
 function checkWinner() {
-    
+    for (var i = 0; i < winCombos.length; i++) {
+      if (Math.abs(board[winCombos[i][0]] + board[winCombos[i][1]] + board[winCombos[i][2]]) === 3) return board[winCombos[i][0]];
+    }
+    return 'Winner!'
+    // if (board.includes('')) return '';
+    //return 'T';
 }
 
 // Render function:
