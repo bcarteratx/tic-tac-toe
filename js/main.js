@@ -21,7 +21,7 @@ const winCombos = [
 let board;
 let turn;
 let winner;
-let turnCount = 1;
+let turnCount = 0;
 let isWinner = false;
 
 /*------Cached Element References------*/
@@ -38,11 +38,11 @@ init();
 
 function init() {
     board = [
-    '', '', '',
-    '', '', '',
-    '', '', ''
+    null, null, null,
+    null, null, null,
+    null, null, null,
     ];
-    turn = 'x';
+    turn = 1;
     winner = null;
     gameStatus.textContent = "It is X's Turn"
     render();
@@ -61,17 +61,31 @@ function handleTurn(click) {
     let idx = cells.findIndex(function(cell) {
         return cell === click.target;
     });
+    let id = click.target.id;
+    id = parseInt(id[2]);
+    //console.log(id)
     if (board[idx] || winner) return;
     board[idx] = turn;
-    if (turn === 'x') {
-        turn = 'o';
+    if (turn === 1) {
+        turn = -1;
         document.getElementById('message').textContent = "It's O's Turn";
     } else {
-        turn = 'x';
+        turn = 1;
         document.getElementById('message').textContent = "It's X's Turn";
 
     }
     win = checkWinner();
+    if (winner === 1) {
+        document.getElementById('message').textContent = "X wins!";
+    } else if ( winner === -1) {
+        document.getElementById('message').textContent = "O wins!";
+    } else {
+
+    }
+    // turnCount += 1;
+    // if (turnCount >= 9) {
+    //     document.getElementById('message').textContent = "It's a Tie!";
+    // }
     render();
 }
 
@@ -81,10 +95,13 @@ function handleTurn(click) {
 // a winner and changes the state of the winner
 // variable if so
 function checkWinner() {
+    
     for (var i = 0; i < winCombos.length; i++) {
-      if (Math.abs(board[winCombos[i][0]] + board[winCombos[i][1]] + board[winCombos[i][2]]) === 3) return board[winCombos[i][0]];
+       // board[0] = "";
+    if (Math.abs(board[winCombos[i][0]] + board[winCombos[i][1]] + board[winCombos[i][2]]) === 3) winner = board[winCombos[i][0]];
     }
-    return 'Winner!'
+    return winner;
+    
     // if (board.includes('')) return '';
     //return 'T';
 }
@@ -96,8 +113,14 @@ function checkWinner() {
 
 function render() {
     board.forEach(function(move, index) {
+        if (move === 1) {
+            move = 'x';
+        } if (move === -1) {
+            move = 'o';
+        }
         cells[index].textContent = move;
         cells[index].style.background = colors[cells];
+        //turnCount = 0;
     });
     
 }
