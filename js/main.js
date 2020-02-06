@@ -64,9 +64,12 @@ function handleTurn(click) {
     if (board[idx] || winner) return;
     board[idx] = turn;
     if (turn === 'x') {
-        turn = 'o'
+        turn = 'o';
+        document.getElementById('message').textContent = "It's O's Turn";
     } else {
-        turn = 'x'
+        turn = 'x';
+        document.getElementById('message').textContent = "It's X's Turn";
+
     }
     win = checkWinner();
     render();
