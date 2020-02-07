@@ -16,7 +16,6 @@ const winCombos = [
     [2, 4, 6]
 ];
 
-
 /*------ App's State (Variables)------*/
 let board;
 let turn;
@@ -48,12 +47,12 @@ function init() {
     render();
 };
 
-
 // On-Click function:
 // Set up what happens when one of the elements
 // is clicked
 
 function handleReset(click) {
+    turnCount = 0;
     init();
 }
 
@@ -63,7 +62,6 @@ function handleTurn(click) {
     });
     let id = click.target.id;
     id = parseInt(id[2]);
-    //console.log(id)
     if (board[idx] || winner) return;
     board[idx] = turn;
     if (turn === 1) {
@@ -72,7 +70,6 @@ function handleTurn(click) {
     } else {
         turn = 1;
         document.getElementById('message').textContent = "It's X's Turn";
-
     }
     win = checkWinner();
     if (winner === 1) {
@@ -80,30 +77,24 @@ function handleTurn(click) {
     } else if ( winner === -1) {
         document.getElementById('message').textContent = "O wins!";
     } else {
-
     }
-    // turnCount += 1;
-    // if (turnCount >= 9) {
-    //     document.getElementById('message').textContent = "It's a Tie!";
-    // }
+    turnCount += 1;
+    if (turnCount >= 9) {
+        document.getElementById('message').textContent = "It's a Tie!";
+    }
     render();
 }
-
 
 // Check winner function:
 // Checks the current state of the board for
 // a winner and changes the state of the winner
 // variable if so
-function checkWinner() {
-    
+function checkWinner() {  
     for (var i = 0; i < winCombos.length; i++) {
-       // board[0] = "";
+// win logic checks all winCombos against the board, summing the three indexes, if they = 3 => winner!
     if (Math.abs(board[winCombos[i][0]] + board[winCombos[i][1]] + board[winCombos[i][2]]) === 3) winner = board[winCombos[i][0]];
     }
     return winner;
-    
-    // if (board.includes('')) return '';
-    //return 'T';
 }
 
 // Render function:
@@ -120,7 +111,5 @@ function render() {
         }
         cells[index].textContent = move;
         cells[index].style.background = colors[cells];
-        //turnCount = 0;
     });
-    
 }
